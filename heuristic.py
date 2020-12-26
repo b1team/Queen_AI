@@ -43,9 +43,9 @@ def get_queen_position(N):
         else:
             if L in results:
                 break
-            reserve_L = [Queen(q.x,(N-1) - q.y) for q in L.copy()]
+            reversed_L = [Queen(q.x, (N-1) - q.y) for q in L.copy()]
             results.append(L)
-            results.append(reserve_L)
+            results.append(reversed_L)
 
     return results
 
