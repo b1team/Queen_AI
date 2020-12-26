@@ -18,9 +18,9 @@
 		<div class="row">
 			<div class="navbar-header col-xs-8">
 				<h1> Chess Board </h1>
-				<form action="/queens" method="POST" style="display: inline; width: 40%;">
-					<label for="N">Số quân hậu:</label>
-					<input type="text" id="N" name="N">
+				<form action="/queens" method="GET" style="display: inline; width: 40%;">
+					<label for="n">Số quân hậu:</label>
+					<input type="text" id="n" name="n">
 					<input type="submit" value="Sắp xếp">
 				</form>
 				<form action="/prev" method="POST" style="display: inline; width: 15%;">
@@ -30,9 +30,9 @@
 					<input type="submit" value="Đáp án tiếp">
 				</form>
 				<hr>
-				<form action="/find" method="POST" style="display: block; width: 40%;">
+				<form action="/find" method="GET" style="display: block; width: 40%;">
 					<label for="index">Đáp án thứ:</label>
-					<input type="text" name="index">
+					<input type="text" name="i">
 					<input type="submit" value="Ok">
 				</form>
 			</div>
@@ -75,12 +75,6 @@
 				</div>
 			</div>
 	</div>
-
-	{% if error %}
-	<script>
-		alert('N phải >= 4');
-	</script>
-	{% endif %}
 </body>
 
 </html>
