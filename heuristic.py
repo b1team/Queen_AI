@@ -12,23 +12,15 @@ class Queen:
             return True
         return False
 
+    def __eq__(self, other):
+        return (self.__class__ == other.__class__ and
+                self.x == other.x and self.y == other.y)
 
 def heuristic(queen, arranged_queens):
     for q in arranged_queens:
         if queen.can_attack(q):
             return 1
     return 0
-
-
-def find_half(res, N):
-  results, ls = [], []
-  for pos in res:
-    for q in pos:
-      queen = Queen(q.x, (N-1) - q.y)
-      ls.append(queen)
-  results.append(ls)
-
-  return results
 
 
 def get_queen_position(N):
@@ -49,16 +41,11 @@ def get_queen_position(N):
                 if heuristic(v, L) == 0:
                     OPEN.insert(0, v)
         else:
+            if L in results:
+                break
+            reserve_L = [Queen(q.x,(N-1) - q.y) for q in L.copy()]
             results.append(L)
-
-            if N % 2 == 0:
-              if u.x == N // 2:
-                half = find_half(results, N)
-                results.extend(half)
-            else:
-              if u.x == ((N//2) + 1):
-                half = find_half(results[:-1], N)
-                results.extend(half)
+            results.append(reserve_L)
 
     return results
 
