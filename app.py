@@ -10,85 +10,86 @@ app.secret_key = '12134eafhajsdhjasvdasds'
 
 
 @app.route('/')
-@app.route('/solve/n=<int:N>/i=<int:num>', methods=['GET', 'POST'])
-def queen_sort(N=4, num=1):
-    error = False
-    if N < 4:
-        N = 4
-        error = True
-    if type(num) is not int:
-        num = 1
-    if type(N) is not int:
-        N = 4
+@app.route('/solve', methods=['GET', 'POST'])
+def queen_sort():
+    n = request.args.get('n', 4, type=int)
+    if not n or n < 4:
+        n = 4
+
+    i = request.args.get('i', 1, type=int)
+    if not i or i < 0:
+        i = 1
+
+    if type(i) != type(1):
+        i = 1
+    if type(n) != type(1):
+        n = 4
 
     start = time.time()
-    pos = get_queen_position(N)
+    pos = get_queen_position(n)
     end = time.time()
 
-    session['num'] = num
-    session['N'] = N
     result_number = len(pos)
+    session['i'] = i
+    session['n'] = n
     session['result_number'] = result_number
 
-    return render_template('chessboard.html', queens = pos[num-1],
-                            N = N, result_number=result_number,
-                            error=error, num=num, time =(end-start))
+    return render_template('chessboard.html', queens = pos[i-1],
+                            N = n, result_number=result_number,
+                            num=i, time =(end-start))
 
 
 @app.route('/queens', methods=['POST', 'GET'])
 def get_queens():
-    if request.method == 'POST':
-        N = request.form.get('N')
-        print(N)
-        if not N:
-            N = 4
-        return redirect(f'/solve/n={N}/i=1')
+    n = request.args.get('n', 4, type=int)
+    i = request.args.get('i', 1, type=int)
+
+    return redirect(f'/solve?n={n}&i={i}')
 
 
 @app.route('/next', methods=['GET', 'POST'])
 def get_next():
     if request.method == 'POST':
-        N = session.get('N')
-        num = session.get('num')
-        num = int(num) + 1
+        n = session.get('n')
+        i = session.get('i')
+        i = int(i) + 1
         result_number = session.get('result_number')
-        if N is None or num is None or result_number is None:
+        if n is None or i is None or result_number is None:
             return redirect('/')
-        if num > result_number:
-            num = 1
+        if i > result_number:
+            i = 1
 
-        return redirect(f'/solve/n={N}/i={num}')
+        return redirect(f'/solve?n={n}&i={i}')
 
 
 @app.route('/prev', methods=['GET', 'POST'])
 def get_prev():
     if request.method == 'POST':
-        N = session.get('N')
-        num = session.get('num')
-        num = int(num) - 1
+        n = session.get('n')
+        i = session.get('i')
+        i = int(i) - 1
         result_number = session.get('result_number')
-        if N is None or num is None or result_number is None:
+        if n is None or i is None or result_number is None:
             return redirect('/')
 
-        if num < 1:
-            num = result_number
+        if i < 1:
+            i = result_number
 
-        return redirect(f'/solve/n={N}/i={num}')
+        return redirect(f'/solve?n={n}&i={i}')
 
 
 @app.route('/find', methods=['GET', 'POST'])
 def get_result():
-    if request.method == 'POST':
-        N = session.get('N')
-        num = request.form['index']
-        result_number = session.get('result_number')
-        if N is None or not num or result_number is None or type(num) is not int:
-            return redirect('/')
+    n = session.get('n')
+    i = request.args.get('i', 1, type=int)
+    result_number = session.get('result_number')
+    if n is None or not i or result_number is None or type(i) is not type(1):
+        return redirect('/')
 
-        if int(num) < 1 or int(num) > result_number:
-            num = 1
+    if int(i) < 1 or int(i) > result_number:
+        i = 1
 
-        return redirect(f'/solve/n={N}/i={num}')
+    return redirect(f'/solve?n={n}&i={i}')
 
 
 if __name__ == '__main__':
