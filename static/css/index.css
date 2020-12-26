@@ -44,7 +44,7 @@
 @media (min-width: 992px){
 
     .chess-grid > .row {
-        width: 450px;
+        width: auto;
     }
 
     .chess-grid div.row div[class^="col-"] {
