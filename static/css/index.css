@@ -1,0 +1,97 @@
+@media (max-width: 320px){
+    .chess-grid > .row {
+        width: 290px;
+    }
+
+    .chess-grid div.row div[class^="col-"] {
+        width: 36px;
+        height: 36px;
+    }
+
+    .chess-stat {
+        margin-top: 15px;
+    }
+}
+
+@media (min-width: 320px){
+
+    .chess-grid > .row {
+        min-width: 350px;
+    }
+
+    .chess-grid div.row div[class^="col-"] {
+        width: 40px;
+        height: 40px;
+    }
+
+    .chess-stat {
+        margin-top: 15px;
+    }
+}
+
+@media (min-width: 768px){
+
+    .chess-grid div.row div[class^="col-"] {
+        width: 40px;
+        height: 40px;
+    }
+
+    .chess-stat {
+           margin-top: 0 !important;
+       }
+}
+
+@media (min-width: 992px){
+
+    .chess-grid > .row {
+        width: 450px;
+    }
+
+    .chess-grid div.row div[class^="col-"] {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (min-width: 1200px){
+    .chess-grid div.row div[class^="col-"] {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.container .row {
+    box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.container > .row > div[class^="col-"] {
+    padding: 0;
+}
+
+.container img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.chess-grid .row {
+    /*border-left: 1px solid #cccccc;*/
+    /*border-right: 1px solid #cccccc;*/
+    margin-right: 0 !important;
+}
+
+/*.chess-grid .row:first-child { border-top: 1px solid #cccccc; }*/
+/*.chess-grid .row:last-child { border-bottom: 1px solid #cccccc; }*/
+.chess-grid .row div[class^="col-"] {
+    vertical-align: middle;
+    text-align: center;
+    padding: 0;
+    width: 50px;
+    height: 50px;
+}
+
+.bg-chess-piece {
+    color: #FFF;
+    background-color: #bbbbbb;
+}

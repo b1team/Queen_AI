@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>Chess Board</title>
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+
+<body>
+
+	<div class="container">
+
+		<!-- Header div -->
+		<div class="row">
+			<div class="navbar-header col-xs-8">
+				<h1> Chess Board </h1>
+				<form action="/queens" method="POST" style="display: inline; width: 40%;">
+					<label for="N">Số quân hậu:</label>
+					<input type="text" id="N" name="N">
+					<input type="submit" value="Sắp xếp">
+				</form>
+				<form action="/prev" method="POST" style="display: inline; width: 15%;">
+					<input type="submit" value="Đáp án trước">
+				</form>
+				<form action="/next" method="POST" style="display: inline; width: 15%;">
+					<input type="submit" value="Đáp án tiếp">
+				</form>
+				<hr>
+				<form action="/find" method="POST" style="display: block; width: 40%;">
+					<label for="index">Đáp án thứ:</label>
+					<input type="text" id="index" name="index">
+					<input type="submit" value="Ok">
+				</form>
+			</div>
+		</div>
+		<hr>
+
+		<div class="row">
+			<div class=" chess-grid">
+				{% for i in range(N) %}
+					<div class="row">
+						{% for j in range(N) %}
+							{% if (i+j) % 2 == 0 %}
+								<div class="col-xs-1 col-sm-1 col-md-1 bg-chess-piece" style="border-style:solid; border-width: 1px; border-color:black">
+									{% if queens[i].y  == j %}
+										<img id="qn" src="{{ url_for('static', filename='scacchi/nreg.gif') }}">
+									{% endif %}
+								</div>
+							{% else %}
+								<div class="col-xs-1 col-sm-1 col-md-1" style="border-style: solid; border-width: 1px; border-color: black">
+									{% if queens[i].y  == j %}
+										<img id="qn" src="{{ url_for('static', filename='scacchi/nreg.gif') }}">
+									{% endif %}
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class="row">
+				<div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">
+					<div class="table-responsive">
+						<hr>
+						<div>
+							<h2>Đáp án thứ {{ num }} / {{ result_number }}</h2>
+							<h2>Thời gian tìm kiếm {{ time }}</h2>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-8 col-sm-8 col-md-4 col-lg-4">
+					<div class="table-responsive">
+					</div>
+				</div>
+			</div>
+	</div>
+
+	{% if error %}
+	<script>
+		alert('N phải >= 4');
+	</script>
+	{% endif %}
+
+</body>
+
+</html>
