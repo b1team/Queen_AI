@@ -16,6 +16,7 @@ class Queen:
         return (self.__class__ == other.__class__ and
                 self.x == other.x and self.y == other.y)
 
+
 def heuristic(queen, arranged_queens):
     for q in arranged_queens:
         if queen.can_attack(q):
@@ -43,7 +44,7 @@ def get_queen_position(N):
         else:
             if L in results:
                 break
-            reversed_L = [Queen(q.x, (N-1) - q.y) for q in L.copy()]
+            reversed_L = [Queen(q.x, (N-1) - q.y) for q in L]
             results.append(L)
             results.append(reversed_L)
 
@@ -52,6 +53,10 @@ def get_queen_position(N):
 
 def solve():
     N = int(input("NHAP N: "))
+    if N < 4:
+        print("N >= 4")
+        return
+
     start = time.time()
     results = get_queen_position(N)
     end = time.time()
