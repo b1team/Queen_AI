@@ -60,7 +60,7 @@ def solve():
     start = time.time()
     results = get_queen_position(N)
     end = time.time()
-    # print([[(i.x, i.y) for i in res] for res in results])
+    print([[(i.x, i.y) for i in res] for res in results])
     print("LEN: ", len(results))
     print("DONE IN: ", end - start, "s")
 
